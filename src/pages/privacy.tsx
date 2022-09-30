@@ -1,17 +1,14 @@
-import { privacyPolicy } from '@/static/privacy';
-import { Link, Element } from 'react-scroll';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
-import { GetStaticProps } from 'next';
-import { getLayout } from '@/layouts/layout';
-import Seo from '@/components/seo/seo';
-
-function makeTitleToDOMId(title: string) {
-  return title.toLowerCase().split(' ').join('_');
-}
+import { privacyPolicy } from "@/static/privacy";
+import { Link, Element } from "react-scroll";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { GetStaticProps } from "next";
+import { getLayout } from "@/layouts/layout";
+import Seo from "@/components/seo/seo";
+import titleToDOMId from "@/utils/titleToDOMId";
 
 export default function PrivacyPage() {
-  const { t } = useTranslation('policy');
+  const { t } = useTranslation("policy");
   const { title, date, content } = privacyPolicy;
 
   return (
@@ -38,7 +35,7 @@ export default function PrivacyPage() {
                     offset={-120}
                     smooth={true}
                     duration={500}
-                    to={makeTitleToDOMId(item.title)}
+                    to={titleToDOMId(item.title)}
                     activeClass="text-sm lg:text-base text-heading font-semibold"
                     className="inline-flex cursor-pointer py-3 uppercase text-sub-heading"
                   >
@@ -54,7 +51,7 @@ export default function PrivacyPage() {
             {content?.map((item) => (
               <Element
                 key={item.title}
-                name={makeTitleToDOMId(item.title)}
+                name={titleToDOMId(item.title)}
                 className="mb-10"
               >
                 <h2 className="mb-4 text-lg font-bold text-heading md:text-xl lg:text-2xl">
@@ -79,7 +76,7 @@ PrivacyPage.getLayout = getLayout;
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale!, ['common', 'policy'])),
+      ...(await serverSideTranslations(locale!, ["common", "policy"])),
     },
   };
 };

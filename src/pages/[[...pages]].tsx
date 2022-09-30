@@ -1,23 +1,25 @@
-import type { NextPageWithLayout } from '@/types';
-import HomeLayout from '@/layouts/_home';
-import Seo from '@/components/seo/seo';
-import { useWindowSize } from '@/lib/use-window-size';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { scroller } from 'react-scroll';
-import { getStaticPaths, getStaticProps } from '@/rest/home-pages.ssr';
-import { InferGetStaticPropsType } from 'next';
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { InferGetStaticPropsType } from "next";
+import dynamic from "next/dynamic";
+import { scroller } from "react-scroll";
+import type { NextPageWithLayout } from "@/types";
+import HomeLayout from "@/layouts/_home";
+import Seo from "@/components/seo/seo";
+import { useWindowSize } from "@/lib/use-window-size";
+import { getStaticPaths, getStaticProps } from "@/rest/home-pages.ssr";
 export { getStaticPaths, getStaticProps };
+
 const CartCounterButton = dynamic(
-  () => import('@/components/cart/cart-counter-button'),
+  () => import("@/components/cart/cart-counter-button"),
   { ssr: false }
 );
-const Classic = dynamic(() => import('@/layouts/classic'));
-const Standard = dynamic(() => import('@/layouts/standard'));
-const Modern = dynamic(() => import('@/layouts/modern'));
-const Minimal = dynamic(() => import('@/layouts/minimal'));
-const Compact = dynamic(() => import('@/layouts/compact'));
+
+const Classic = dynamic(() => import("@/layouts/classic"));
+const Standard = dynamic(() => import("@/layouts/standard"));
+const Modern = dynamic(() => import("@/layouts/modern"));
+const Minimal = dynamic(() => import("@/layouts/minimal"));
+const Compact = dynamic(() => import("@/layouts/compact"));
 
 const MAP_LAYOUT_TO_GROUP: Record<string, any> = {
   classic: Classic,
@@ -27,6 +29,7 @@ const MAP_LAYOUT_TO_GROUP: Record<string, any> = {
   compact: Compact,
   default: Classic,
 };
+
 const Home: NextPageWithLayout<
   InferGetStaticPropsType<typeof getStaticProps>
 > = ({ variables, layout }) => {
@@ -36,7 +39,7 @@ const Home: NextPageWithLayout<
 
   useEffect(() => {
     if (query.text || query.category) {
-      scroller.scrollTo('grid', {
+      scroller.scrollTo("grid", {
         smooth: true,
         offset: -110,
       });
@@ -48,7 +51,7 @@ const Home: NextPageWithLayout<
     <>
       {/* <Seo title={page?.name} url={page?.slug} images={page?.banners} /> */}
       <Component variables={variables} />
-      {!['compact', 'minimal'].includes(layout) && width > 1023 && (
+      {!["compact", "minimal"].includes(layout) && width > 1023 && (
         <CartCounterButton />
       )}
     </>

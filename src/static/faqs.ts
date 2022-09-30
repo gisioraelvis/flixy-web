@@ -1,4 +1,4 @@
-export const faq = [
+export const faqs = [
   {
     title: 'faq-one-title',
     content: 'faq-one-content',

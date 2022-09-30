@@ -7,7 +7,7 @@ export const ROUTES = {
   CHANGE_PASSWORD: '/change-password',
   ORDERS: '/orders',
   REFUNDS: '/refunds',
-  HELP: '/help',
+  FAQS: '/faqs',
   LOGOUT: '/logout',
   OFFERS: '/offers',
   ORDER_RECEIVED: '/order-received',

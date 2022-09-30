@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { Waypoint } from 'react-waypoint';
 import { Swiper, SwiperSlide, Navigation } from '@/components/ui/slider';
 import { Image } from '@/components/ui/image';
-import { Banner } from '@/rest/types';
+import { Banner } from '@/types';
 import { productPlaceholder } from '@/lib/placeholders';
 import Search from '@/components/ui/search/search';
 import { useAtom } from 'jotai';

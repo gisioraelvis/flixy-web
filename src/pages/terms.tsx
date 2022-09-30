@@ -5,10 +5,8 @@ import { useTranslation } from 'next-i18next';
 import { GetStaticProps } from 'next';
 import { getLayout } from '@/layouts/layout';
 import Seo from '@/components/seo/seo';
+import titleToDOMId from '@/utils/titleToDOMId';
 
-function makeTitleToDOMId(title: string) {
-  return title.toLowerCase().split(' ').join('_');
-}
 
 export default function TermsPage() {
   const { t } = useTranslation('terms');
@@ -38,7 +36,7 @@ export default function TermsPage() {
                     offset={-120}
                     smooth={true}
                     duration={500}
-                    to={makeTitleToDOMId(item.title)}
+                    to={titleToDOMId(item.title)}
                     activeClass="text-sm lg:text-base text-heading font-semibold"
                     className="inline-flex cursor-pointer py-3 uppercase text-sub-heading"
                   >
@@ -54,7 +52,7 @@ export default function TermsPage() {
             {content?.map((item) => (
               <Element
                 key={item.title}
-                name={makeTitleToDOMId(item.title)}
+                name={titleToDOMId(item.title)}
                 className="mb-10"
               >
                 <h2 className="mb-4 text-lg font-bold text-heading md:text-xl lg:text-2xl">

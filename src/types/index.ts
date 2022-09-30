@@ -149,7 +149,7 @@ export interface Category {
   image: Attachment;
 }
 
-interface Banner {
+export interface Banner {
   id: string;
   title: string;
   description: string;

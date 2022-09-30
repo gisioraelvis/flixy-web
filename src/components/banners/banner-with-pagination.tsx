@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide, Pagination } from '@/components/ui/slider';
 import { Image } from '@/components/ui/image';
-import { Banner } from '@/rest/types';
+import { Banner } from '@/types';
 import { productPlaceholder } from '@/lib/placeholders';
 import Link from '@/components/ui/link';
 import { ROUTES } from '@/lib/routes';

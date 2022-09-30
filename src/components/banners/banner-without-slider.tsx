@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Image } from '@/components/ui/image';
-import { Banner } from '@/rest/types';
+import { Banner } from '@/types';
 import { productPlaceholder } from '@/lib/placeholders';
 import SearchWithSuggestion from '@/components/ui/search/search-with-suggestion';
 

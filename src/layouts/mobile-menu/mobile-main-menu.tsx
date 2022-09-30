@@ -10,7 +10,7 @@ const headerLinks = [
   { href: ROUTES.MANUFACTURERS, label: 'text-manufacturers' },
   { href: ROUTES.AUTHORS, label: 'text-authors' },
   { href: ROUTES.OFFERS, label: 'nav-menu-offer' },
-  { href: ROUTES.HELP, label: 'nav-menu-faq' },
+  { href: ROUTES.FAQS, label: 'nav-menu-faqs' },
   { href: ROUTES.CONTACT, label: 'nav-menu-contact' },
 ];
 

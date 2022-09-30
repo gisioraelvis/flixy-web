@@ -19,7 +19,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
   console.log('pathname:', pathname);
   return (
     <aside className={className}>
-      <div className="mb-5 overflow-hidden rounded border border-border-200 bg-light px-10 py-8">
+      {/* <div className="mb-5 overflow-hidden rounded border border-border-200 bg-light px-10 py-8">
         <h3 className="mb-4 border-b border-dashed border-border-200 pb-4 text-base font-semibold text-heading">
           {t('text-wallet-points')}
         </h3>
@@ -38,7 +38,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
             <span>{t('text-available')}</span>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="overflow-hidden rounded border border-border-200 bg-light">
         <ul className="py-7">

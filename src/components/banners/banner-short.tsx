@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide, Navigation } from '@/components/ui/slider';
 import { Image } from '@/components/ui/image';
-import { Banner } from '@/rest/types';
+import { Banner } from '@/types';
 import { productPlaceholder } from '@/lib/placeholders';
 import { useIsRTL } from '@/lib/locals';
 import { ArrowNext, ArrowPrev } from '@/components/icons';
