@@ -6,7 +6,6 @@ export interface LinkProps extends NextLinkProps {
   title?: string;
   target?: string;
   variant?: "button";
-  children: React.ReactNode;
 }
 
 const Link: React.FC<LinkProps> = ({

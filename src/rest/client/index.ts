@@ -52,10 +52,10 @@ import type {
   VerifyCouponResponse,
   VerifyForgotPasswordUserInput,
   VerifyOtpInputType,
-} from '@/types';
-import { API_ENDPOINTS } from './api-endpoints';
-import { HttpClient } from './http-client';
-import { OTPVerifyResponse } from '@/types';
+} from "@/types";
+import { API_ENDPOINTS } from "./api-endpoints";
+import { HttpClient } from "./http-client";
+import { OTPVerifyResponse } from "@/types";
 
 class Client {
   products = {
@@ -72,8 +72,8 @@ class Client {
       ...params
     }: Partial<ProductQueryOptions>) =>
       HttpClient.get<ProductPaginator>(API_ENDPOINTS.PRODUCTS, {
-        searchJoin: 'and',
-        with: 'type;author',
+        searchJoin: "and",
+        with: "type;author",
         ...params,
         search: HttpClient.formatSearchParams({
           type,
@@ -92,56 +92,49 @@ class Client {
     get: (slug: string) =>
       HttpClient.get<Product>(`${API_ENDPOINTS.PRODUCTS}/${slug}`),
   };
-
   categories = {
     all: ({ type, ...params }: Partial<CategoryQueryOptions>) =>
       HttpClient.get<CategoryPaginator>(API_ENDPOINTS.CATEGORIES, {
-        searchJoin: 'and',
+        searchJoin: "and",
         ...params,
         ...(type && { search: HttpClient.formatSearchParams({ type }) }),
       }),
   };
-
   tags = {
     all: (params: Partial<TagQueryOptions>) =>
       HttpClient.get<TagPaginator>(API_ENDPOINTS.TAGS, params),
   };
-
   types = {
     all: (params?: Partial<TypeQueryOptions>) =>
       HttpClient.get<Type[]>(API_ENDPOINTS.TYPES, params),
     get: (slug: string) =>
       HttpClient.get<Type>(`${API_ENDPOINTS.TYPES}/${slug}`),
   };
-
   shops = {
     all: (params: Partial<ShopQueryOptions>) =>
       HttpClient.get<ShopPaginator>(API_ENDPOINTS.SHOPS, params),
     get: (slug: string) =>
       HttpClient.get<Shop>(`${API_ENDPOINTS.SHOPS}/${slug}`),
   };
-
   authors = {
     all: (params: Partial<AuthorQueryOptions>) =>
       HttpClient.get<AuthorPaginator>(API_ENDPOINTS.AUTHORS, params),
-    top: (params: Pick<QueryOptions, 'limit'>) =>
+    top: (params: Pick<QueryOptions, "limit">) =>
       HttpClient.get<Author[]>(API_ENDPOINTS.AUTHORS_TOP, params),
     get: (slug: string) =>
       HttpClient.get<Author>(`${API_ENDPOINTS.AUTHORS}/${slug}`),
   };
-
   manufacturers = {
     all: (params: Partial<ManufacturerQueryOptions>) =>
       HttpClient.get<ManufacturerPaginator>(
         API_ENDPOINTS.MANUFACTURERS,
         params
       ),
-    top: (params: Pick<QueryOptions, 'limit'>) =>
+    top: (params: Pick<QueryOptions, "limit">) =>
       HttpClient.get<Manufacturer[]>(API_ENDPOINTS.MANUFACTURERS_TOP, params),
     get: (slug: string) =>
       HttpClient.get<Manufacturer>(`${API_ENDPOINTS.MANUFACTURERS}/${slug}`),
   };
-
   coupons = {
     all: (params: Partial<CouponQueryOptions>) =>
       HttpClient.get<CouponPaginator>(API_ENDPOINTS.COUPONS, params),
@@ -151,7 +144,6 @@ class Client {
         input
       ),
   };
-  
   orders = {
     all: (params: Partial<OrderQueryOptions>) =>
       HttpClient.get<OrderPaginator>(API_ENDPOINTS.ORDERS, params),
@@ -159,9 +151,9 @@ class Client {
       HttpClient.get<Order>(`${API_ENDPOINTS.ORDERS}/${tracking_number}`),
     create: (input: CreateOrderInput) =>
       HttpClient.post<Order>(API_ENDPOINTS.ORDERS, input),
-    statuses: (params: Pick<QueryOptions, 'limit'>) =>
+    statuses: (params: Pick<QueryOptions, "limit">) =>
       HttpClient.get<OrderStatusPaginator>(API_ENDPOINTS.ORDERS_STATUS, params),
-    refunds: (params: Pick<QueryOptions, 'limit'>) =>
+    refunds: (params: Pick<QueryOptions, "limit">) =>
       HttpClient.get<RefundPaginator>(API_ENDPOINTS.ORDERS_REFUNDS, params),
     createRefund: (input: CreateRefundInput) =>
       HttpClient.post<Refund>(API_ENDPOINTS.ORDERS_REFUNDS, input),
@@ -232,11 +224,11 @@ class Client {
     upload: (input: File[]) => {
       let formData = new FormData();
       input.forEach((attachment) => {
-        formData.append('attachment[]', attachment);
+        formData.append("attachment[]", attachment);
       });
       return HttpClient.post<Attachment[]>(API_ENDPOINTS.UPLOADS, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
     },

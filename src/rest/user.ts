@@ -1,30 +1,30 @@
-import { useModalAction } from '@/components/ui/modal/modal.context';
-import { useTranslation } from 'next-i18next';
+import { useModalAction } from "@/components/ui/modal/modal.context";
+import { useTranslation } from "next-i18next";
 import {
   QueryClient,
   useMutation,
   useQuery,
   useQueryClient,
-} from 'react-query';
-import { toast } from 'react-toastify';
-import client from './client';
-import { authorizationAtom } from '@/store/authorization-atom';
-import { useAtom } from 'jotai';
-import { useToken } from '@/lib/hooks/use-token';
-import { API_ENDPOINTS } from './client/api-endpoints';
-import { useState } from 'react';
+} from "react-query";
+import { toast } from "react-toastify";
+import client from "./client";
+import { authorizationAtom } from "@/store/authorization-atom";
+import { useAtom } from "jotai";
+import { useToken } from "@/lib/hooks/use-token";
+import { API_ENDPOINTS } from "./client/api-endpoints";
+import { useState } from "react";
 import {
   RegisterUserInput,
   ChangePasswordUserInput,
   OtpLoginInputType,
-} from '@/types';
-import { initialOtpState, otpAtom } from '@/components/otp/atom';
-import { useStateMachine } from 'little-state-machine';
+} from "@/types";
+import { initialOtpState, otpAtom } from "@/components/otp/atom";
+import { useStateMachine } from "little-state-machine";
 import {
   initialState,
   updateFormState,
-} from '@/components/auth/forgot-password';
-import { clearCheckoutAtom } from '@/store/checkout';
+} from "@/components/auth/forgot-password";
+import { clearCheckoutAtom } from "@/store/checkout";
 
 export function useUser() {
   const [isAuthorized] = useAtom(authorizationAtom);
@@ -48,7 +48,7 @@ export const useDeleteAddress = () => {
   return useMutation(client.users.deleteAddress, {
     onSuccess: (data) => {
       if (data) {
-        toast.success('successfully-address-deleted');
+        toast.success("successfully-address-deleted");
         closeModal();
         return;
       }
@@ -61,7 +61,7 @@ export const useDeleteAddress = () => {
       toast.error(data?.message);
     },
     onSettled: () => {
-      queryClient.invalidateQueries('/me');
+      queryClient.invalidateQueries("/me");
     },
   });
 };
@@ -73,21 +73,21 @@ export const useUpdateUser = () => {
   return useMutation(client.users.update, {
     onSuccess: (data) => {
       if (data?.id) {
-        toast.success(t('profile-update-successful'));
+        toast.success(t("profile-update-successful"));
         closeModal();
       }
     },
     onError: (error) => {
-      toast.error(t('error-something-wrong'));
+      toast.error(t("error-something-wrong"));
     },
     onSettled: () => {
-      queryClient.invalidateQueries('/me');
+      queryClient.invalidateQueries("/me");
     },
   });
 };
 
 export const useContact = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return useMutation(client.users.contactUs, {
     onSuccess: (data) => {
@@ -104,7 +104,7 @@ export const useContact = () => {
 };
 
 export function useLogin() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const [_, setAuthorized] = useAtom(authorizationAtom);
   const { closeModal } = useModalAction();
   const { setToken } = useToken();
@@ -113,7 +113,7 @@ export function useLogin() {
   const { mutate, isLoading } = useMutation(client.users.login, {
     onSuccess: (data) => {
       if (!data.token) {
-        setServerError(t('error-credential-wrong'));
+        setServerError("error-credential-wrong");
         return;
       }
       setToken(data.token);
@@ -142,7 +142,7 @@ export function useSocialLogin() {
         return;
       }
       if (!data.token) {
-        toast.error(t('error-credential-wrong'));
+        toast.error(t("error-credential-wrong"));
       }
     },
     onSettled: () => {
@@ -166,7 +166,7 @@ export function useSendOtpCode() {
         otpId: data?.id!,
         isContactExist: data?.is_contact_exist!,
         phoneNumber: data?.phone_number!,
-        step: data?.is_contact_exist! ? 'OtpForm' : 'RegisterForm',
+        step: data?.is_contact_exist! ? "OtpForm" : "RegisterForm",
       });
     },
     onError: (error: Error) => {
@@ -209,7 +209,7 @@ export function useVerifyOtpCode({
 
 export function useOtpLogin() {
   const [otpState, setOtpState] = useAtom(otpAtom);
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const [_, setAuthorized] = useAtom(authorizationAtom);
   const { closeModal } = useModalAction();
   const { setToken } = useToken();
@@ -219,7 +219,7 @@ export function useOtpLogin() {
   const { mutate: otpLogin, isLoading } = useMutation(client.users.OtpLogin, {
     onSuccess: (data) => {
       if (!data.token) {
-        setServerError('text-otp-verify-failed');
+        setServerError("text-otp-verify-failed");
         return;
       }
       setToken(data.token!);
@@ -249,7 +249,7 @@ export function useOtpLogin() {
 }
 
 export function useRegister() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   const { setToken } = useToken();
   const [_, setAuthorized] = useAtom(authorizationAtom);
   const { closeModal } = useModalAction();
@@ -266,7 +266,7 @@ export function useRegister() {
         return;
       }
       if (!data.token) {
-        toast.error(t('error-credential-wrong'));
+        toast.error(t("error-credential-wrong"));
       }
     },
     onError: (error) => {
@@ -290,7 +290,7 @@ export function useLogout() {
   return useMutation(client.users.logout, {
     onSuccess: (data) => {
       if (data) {
-        setToken('');
+        setToken("");
         setAuthorized(false);
         resetCheckout();
       }
@@ -302,7 +302,7 @@ export function useLogout() {
 }
 
 export function useChangePassword() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
   let [formError, setFormError] =
     useState<Partial<ChangePasswordUserInput> | null>(null);
 
@@ -310,11 +310,11 @@ export function useChangePassword() {
     onSuccess: (data) => {
       if (!data.success) {
         setFormError({
-          oldPassword: data?.message ?? '',
+          oldPassword: data?.message ?? "",
         });
         return;
       }
-      toast.success(t('password-successful'));
+      toast.success(t("password-successful"));
     },
     onError: (error) => {
       const {
@@ -337,14 +337,14 @@ export function useForgotPassword() {
     onSuccess: (data, variables) => {
       if (!data.success) {
         setFormError({
-          email: data?.message ?? '',
+          email: data?.message ?? "",
         });
         return;
       }
       setMessage(data?.message!);
       actions.updateFormState({
         email: variables.email,
-        step: 'Token',
+        step: "Token",
       });
     },
   });
@@ -360,11 +360,11 @@ export function useResetPassword() {
   return useMutation(client.users.resetPassword, {
     onSuccess: (data) => {
       if (data?.success) {
-        toast.success('Successfully Reset Password!');
+        toast.success("Successfully Reset Password!");
         actions.updateFormState({
           ...initialState,
         });
-        openModal('LOGIN_VIEW');
+        openModal("LOGIN_VIEW");
         return;
       }
     },
@@ -385,12 +385,12 @@ export function useVerifyForgotPasswordToken() {
       onSuccess: (data, variables) => {
         if (!data.success) {
           setFormError({
-            token: data?.message ?? '',
+            token: data?.message ?? "",
           });
           return;
         }
         actions.updateFormState({
-          step: 'Password',
+          step: "Password",
           token: variables.token as string,
         });
       },
